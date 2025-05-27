@@ -1,0 +1,161 @@
+.wrapper {
+  background: #321b6c;
+  border: 7px solid black;
+  border-radius: 25px;
+  outline: 4px solid #e4e4e4;
+  outline-offset: -10px;
+
+}
+
+.container {
+  color: whitesmoke;
+  background: #321b6c;
+  text-shadow:
+    -1px -1px 0 black,
+    0   -1px 0 black,
+    1px -1px 0 black,
+    -1px  0   0 black,
+    1px  0   0 black,
+    -1px  1px 0 black,
+    0    1px 0 black,
+    1px  1px 0 black;
+  letter-spacing: 1px;
+  scrollbar-color:whitesmoke #321b6c ;
+}
+
+h3 {
+  letter-spacing: 2px;
+}
+
+.title {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+  color: whitesmoke;
+  font-weight: bold;
+  text-shadow:
+    -1px -1px 0 black,
+    0   -1px 0 black,
+    1px -1px 0 black,
+    -1px  0   0 black,
+    1px  0   0 black,
+    -1px  1px 0 black,
+    0    1px 0 black,
+    1px  1px 0 black;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 16px;
+}
+
+mat-dialog-actions {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+mar-form-field {
+  border-bottom: 2px;
+  border-color: white;
+}
+
+.number-input {
+  width: 15%;
+  background-color: #321b6c;
+  border: 2px solid whitesmoke;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.number-input:hover, .number-input:focus {
+  outline: 2px solid #e4e4e4;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.saveButton, .uploadBtn, .cancelButton {
+  text-transform: uppercase;
+  outline: 3px solid #e4e4e4;
+  background-color: #321b6c;
+  border-radius: 10px;
+  text-shadow: 1px -1px  black,
+  -1px -1px  black,
+  -1px  1px  black,
+  1px  1px  black;
+}
+
+.saveButton:hover, .uploadBtn:hover, .cancelButton:hover {
+  outline: 2px solid #999;
+}
+
+.custom-file-upload-wrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.custom-file-upload {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: #321b6c;
+  color: white;
+  border: 2px solid black;
+  border-radius: 6px;
+  text-shadow:
+    -1px -1px 0 black,
+    0   -1px 0 black,
+    1px -1px 0 black,
+    -1px  0   0 black,
+    1px  0   0 black,
+    -1px  1px 0 black,
+    0    1px 0 black,
+    1px  1px 0 black;
+  transition: background-color 0.3s ease;
+}
+
+.custom-file-upload {
+  border: 3px solid whitesmoke;
+}
+
+.custom-file-upload:hover {
+  background-color: #472d84;
+  border: 3px solid #999;
+}
+
+.custom-file-upload input[type="file"] {
+  display: none;
+}
+
+.fileUploadBox {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+@media only screen and (max-width: 768px) {
+  .fileUploadBox {
+    flex-direction: column;
+  }
+
+}

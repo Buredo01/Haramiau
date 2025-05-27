@@ -1,0 +1,180 @@
+<canvas id="confetti-canvas"></canvas>
+
+<div class="grid-container">
+  <div class="left-column">
+    @if (gameStatus == 'active' || gameStatus == 'end' || gameStatus ==
+    'showWord') {
+    <app-player-list
+      [playerDatas]="playerDatas"
+      [currentGM]="currentGM"
+      [currentHaramiauPlayer]="currentHaramiauPlayer"
+      [haramiauVotes]="haramiauVotes"
+      [hintCounter]="hintCounter"
+      [currentWord]="currentWord"
+      [gameStatus]="gameStatus"
+      [tipps]="tipps"
+      [isDisabled]="isDisabled"
+      (sendDisabled)="changeDisabledParent($event)"
+      (isUserGMOutput)="onDataReceived($event)"
+    >
+    </app-player-list>
+    }
+  </div>
+  <div class="main-column">
+    @if (currentRoom) {
+    <div class="room-info">
+      <div
+        *ngIf="gameStatus == 'inactive'; else timerRunning"
+        class="invite-container"
+      >
+        <app-invite-link
+          (link)="handleLink($event)"
+          [roomName]="currentRoom"
+        ></app-invite-link>
+        <button class="qr-code-button" (click)="toggleQrCode()">
+          <mat-icon>qr_code</mat-icon>
+        </button>
+      </div>
+
+      <ng-template #timerRunning>
+        <h2 class="room-header">{{ remainingTime }}s</h2>
+      </ng-template>
+      <div class="exit-wrapper">
+        <button class="exitButton" mat-button (click)="exitRoom()">
+          Kilépés
+        </button>
+      </div>
+    </div>
+    }
+
+    <app-table
+      [playerDatas]="playerDatas"
+      [hints]="hints"
+      [allEmote]="allEmote"
+      [gameStatus]="gameStatus"
+      [isDisabled]="isDisabled"
+      (sendDisabled)="changeDisabledParent($event)"
+    ></app-table>
+    @if (gameStatus == 'active') {
+
+    <div class="input-field">
+      <button
+        *ngIf="!receivedIsUserGM"
+        class="pass-submit-button"
+        mat-raised-button
+        (click)="passTurn()"
+        [disabled]="isDisabled"
+      >
+        <div class="button-content">
+          <mat-icon>close</mat-icon>
+          <span class="gombspan">Passz</span>
+        </div>
+      </button>
+      <mat-form-field appearance="outline">
+        <input
+          class="inputF"
+          #tippInput
+          matInput
+          placeholder="Ide írj..."
+          value=""
+          [disabled]="isDisabled"
+          (keydown.enter)="sendText(tippInput.value)"
+        />
+      </mat-form-field>
+      <button
+        class="pass-submit-button"
+        mat-raised-button
+        (click)="sendText(tippInput.value)"
+        [disabled]="isDisabled"
+      >
+        <div class="button-content">
+          <mat-icon>send</mat-icon>
+          <span class="gombspan">Küldés</span>
+        </div>
+      </button>
+    </div>
+    } <div class="emoji_under">@if(currentRoom){
+    <div class="center-wrapper">
+      <button mat-raised-button class="emojiButton" (click)="toggleEmotes()">
+        😺
+      </button>
+    </div>
+    }
+    <div *ngIf="showEmotes" class="emoji-container">
+      <button
+        class="emojiButtonClicked"
+        [disabled]="isEmoteEnabled"
+        mat-raised-button
+        *ngFor="let emote of emotes"
+        (click)="onEmoteClick(emote)"
+      >
+        {{ emote }}
+      </button>
+    </div>
+    </div>
+  </div>
+  <div class="right-column">
+    @if (gameStatus == 'active' || gameStatus == 'showWord'){
+    <app-info-card
+      [gameStatus]="gameStatus"
+      [currentWord]="currentWord.word"
+      [currentGM]="currentGM"
+      [maxTipp]="currentWord.numHints"
+      [canGiveMinusPoints]="currentWord.canGiveMinusPoints"
+      [currentTurn]="currentTurn"
+      [hintCounter]="hintCounter"
+      [hints]="hints"
+      [tipps]="tipps"
+    ></app-info-card>
+    } @if(gameStatus == 'inactive' && link !=='' && showQrCode){
+    @if(showQrCode){
+    <div class="overlay"></div>
+    }
+    <div class="qr-code">
+      <qr-code [value]="link" [size]="qrSize" errorCorrectionLevel="M" />
+    </div>
+    }
+  </div>
+</div>
+
+@if(gameStatus == 'inactive'){
+<div class="qrcenter" *ngIf="isMobileView">
+  <button class="qr-code-button" (click)="toggleQrCode()">
+    <mat-icon>qr_code</mat-icon>
+  </button>
+</div>
+} @if (gameStatus){
+<div class="mobile-bottom-bar" *ngIf="isMobileView">
+  <div class="zindexgomb">
+    <button
+      class="sidebar-toggle-bottom-left"
+      (click)="toggleSidebar()"
+      [ngClass]="{ open: sidebarOpen, closed: !sidebarOpen }"
+      aria-label="Toggle sidebar"
+    >
+      <mat-icon>{{ sidebarOpen ? "close" : "menu" }}</mat-icon>
+    </button>
+  </div>
+  <div class="zindexgomb">
+    <button
+      class="sidebar-toggle-bottom-right"
+      (click)="toggleSidebarright()"
+      [ngClass]="{ open: sidebarOpenright, closed: !sidebarOpenright }"
+      aria-label="Toggle sidebarright"
+    >
+      <mat-icon>{{ sidebarOpenright ? "close" : "info" }}</mat-icon>
+    </button>
+  </div>
+</div>
+}
+
+<div
+  *ngFor="let emote of emoteService.getFlyingEmotes()"
+  class="flying-emote"
+  [style.left.px]="emote.x"
+  [style.top.px]="emote.y"
+>
+  {{ emote.symbol }}
+</div>
+
+<router-outlet />

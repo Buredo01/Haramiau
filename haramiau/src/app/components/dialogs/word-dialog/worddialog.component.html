@@ -1,0 +1,18 @@
+<div mat-dialog-content class="middle">
+  <h1 mat-dialog-title >&#8595; Válassz egy szót! &#8595;</h1>
+  <div class="flex-container">
+    <div class="ripple-container"
+         matRipple
+         (click)="selectWord(word1, value1)">
+      <div class="word"><b>{{ word1 }}</b></div>
+      <div class="value">Pontszám: {{ value1 }}</div>
+    </div>
+
+    <div class="ripple-container"
+         matRipple
+         (click)="selectWord(word2, value2)">
+      <div class="word"><b>{{ word2 }}</b></div>
+      <div class="value">Pontszám: {{ value2 }}</div>
+    </div>
+  </div>
+</div>

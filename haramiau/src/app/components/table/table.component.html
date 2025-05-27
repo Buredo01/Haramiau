@@ -1,0 +1,168 @@
+<!-- For Mobile Only -->
+@if (gameStatus) {
+<div class="mobile-player-header" *ngIf="isMobileView">
+  <div class="player-name">
+    {{ currentPlayerName | slice : 0 : maxPlayerNameLength }}
+    <ng-container *ngIf="currentPlayerName.length > maxPlayerNameLength"
+      >...</ng-container
+    >
+  </div>
+
+  <div class="players-container">
+    <div class="player-item" *ngIf="currentPlayerScore !== null">
+      <div class="player-name-score">
+        <span class="player-score">
+          <b style="font-size: 20px">{{ currentPlayerScore }} pont</b>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="exit-wrapper">
+    <button class="exitButton" mat-button (click)="exit()">Kilépés</button>
+  </div>
+</div>
+<div class="info-item" *ngIf="isMobileView">
+  <div class="info-item scrolling-text-container">
+    <div class="scrolling-text">{{ status }}</div>
+  </div>
+  <div class="mobile-time-container" *ngIf="remainingTime > 0">
+    <h2 class="room-header">{{ remainingTime }}s</h2>
+  </div>
+</div>
+}
+<div class="container">
+  <div class="table-and-chairs">
+    <mat-card
+      class="table"
+      [style.width.px]="tableWidth"
+      [style.height.px]="tableHeight"
+    >
+      <div class="word-grid">
+        <div class="column">
+          <div class="word-box" [title]="hint1" *ngIf="hint1 !== ''">
+            {{ hint1 | slice : startChar : maxHintLength
+            }}<ng-container *ngIf="hint1.length > maxHintLength"
+              >...</ng-container
+            >
+          </div>
+          <div class="word-box" [title]="hint2" *ngIf="hint2 !== ''">
+            {{ hint2 | slice : startChar : maxHintLength
+            }}<ng-container *ngIf="hint2.length > maxHintLength"
+              >...</ng-container
+            >
+          </div>
+          <div class="word-box" [title]="hint3" *ngIf="hint3 !== ''">
+            {{ hint3 | slice : startChar : maxHintLength
+            }}<ng-container *ngIf="hint3.length > maxHintLength"
+              >...</ng-container
+            >
+          </div>
+        </div>
+        <div class="column">
+          <div class="word-box" [title]="hint4" *ngIf="hint4 !== ''">
+            {{ hint4 | slice : startChar : maxHintLength
+            }}<ng-container *ngIf="hint4.length > maxHintLength"
+              >...</ng-container
+            >
+          </div>
+          <div class="word-box" [title]="hint5" *ngIf="hint5 !== ''">
+            {{ hint5 | slice : startChar : maxHintLength
+            }}<ng-container *ngIf="hint5.length > maxHintLength"
+              >...</ng-container
+            >
+          </div>
+          <div class="word-box" [title]="hint6" *ngIf="hint6 !== ''">
+            {{ hint6 | slice : startChar : maxHintLength
+            }}<ng-container *ngIf="hint6.length > maxHintLength"
+              >...</ng-container
+            >
+          </div>
+        </div>
+      </div>
+      @if (gameStatus == 'inactive'){
+      <button mat-raised-button class="avatar_btn" (click)="openAvatars()">
+        <mat-icon>person</mat-icon>
+        <span>Avatárok</span>
+      </button>
+      } @if (gameStatus == 'inactive' && isGM) {
+      <button mat-raised-button class="settings_btn" (click)="openSettings()">
+         <mat-icon>settings</mat-icon>
+         <span>Beállítások</span>
+      </button>      
+      <button
+        mat-raised-button
+        class="start_btn"
+        (click)="onStart()"
+        [disabled]="ConvertToNumber(playerSize) < minPlayerToStart"
+      >
+        Játék kezdése
+      </button>
+      }@else if(gameStatus == 'active' && !hint1){
+      <div class="mobilmacska">
+        <div class="loading-cat">
+          <div class="body"></div>
+          <div class="head">
+            <div class="face"></div>
+          </div>
+          <div class="foot">
+            <div class="tummy-end"></div>
+            <div class="bottom"></div>
+            <div class="legs left"></div>
+            <div class="legs right"></div>
+          </div>
+          <div class="hands left"></div>
+          <div class="hands right"></div>
+        </div>
+      </div>
+      }@else if(gameStatus == 'inactive') {
+      <div class="mobilmacska">
+        <h1>Várakozás a játék elindítására!</h1>
+        <div class="loading-cat">
+          <div class="body"></div>
+          <div class="head">
+            <div class="face"></div>
+          </div>
+          <div class="foot">
+            <div class="tummy-end"></div>
+            <div class="bottom"></div>
+            <div class="legs left"></div>
+            <div class="legs right"></div>
+          </div>
+          <div class="hands left"></div>
+          <div class="hands right"></div>
+        </div>
+      </div>
+      }
+    </mat-card>
+    <div class="chairs">
+      <div *ngFor="let chair of chairs; let i = index" class="chair-container">
+        <!-- Szék + Avatar -->
+        <mat-card
+          class="chair"
+          [ngStyle]="getChairStyle(i, chair.avatar, chair.name)"
+        >
+          <img
+            *ngIf="isChairGM(i)"
+            src="/badges/gm_crown.png"
+            [class.animate-poof]="crownVisible[i]"
+            class="chair-crown"
+            alt="GM Crown"
+          />
+        </mat-card>
+
+        <!-- Játékos neve -->
+        <p
+          class="player-name"
+          *ngIf="chair.name"
+          [ngStyle]="getChairPosition(i).namePosition"
+          [title]="chair.name"
+        >
+          {{ chair.name | slice : startChar : maxPlayerNameLength }}
+          <ng-container *ngIf="chair.name.length > maxPlayerNameLength"
+            >...</ng-container
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

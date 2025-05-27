@@ -1,0 +1,96 @@
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #321b6c;
+  border-radius: 25px;
+  border: 6px solid black;
+  outline: 3px solid #e4e4e4;
+  outline-offset: -10px;
+  scrollbar-color: #f59f01 #1e1e1e !important;
+}
+
+h1 {
+  letter-spacing: 1px;
+  text-shadow:
+    -1px -1px 0 black,
+    0   -1px 0 black,
+    1px -1px 0 black,
+    -1px  0   0 black,
+    1px  0   0 black,
+    -1px  1px 0 black,
+    0    1px 0 black,
+    1px  1px 0 black;
+}
+
+mat-tab-group {
+  flex-grow: 1;
+  overflow: auto;
+  scrollbar-color:#f59f01 #321b6c !important;
+  scrollbar-width: thin;
+}
+
+h3 {
+  color: #f59f01;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow:
+    -1px -1px 0 black,
+    0   -1px 0 black,
+    1px -1px 0 black,
+    -1px  0   0 black,
+    1px  0   0 black,
+    -1px  1px 0 black,
+    0    1px 0 black,
+    1px  1px 0 black;
+}
+
+li, p {
+  letter-spacing: 1px;
+  color: whitesmoke;
+  text-shadow:
+    1px -1px black,
+    -1px -1px black,
+    -1px  1px black,
+    1px  1px black;
+}
+
+strong {
+  letter-spacing: 1px;
+  font-weight: normal;
+  text-shadow:
+    0 0 1px black,
+    1px 0 black,
+    -1px 0 black,
+    0 1px black,
+    0 -1px black,
+    1px 1px black,
+    -1px -1px black,
+    1px -1px black,
+    -1px 1px black;
+  color: #f59f01;
+}
+
+mat-dialog-content {
+  height: 100%;
+  padding: 0;
+}
+
+.custom-tab-label {
+  color: #f59f01;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-shadow:
+    -1px -1px 0 black,
+    0   -1px 0 black,
+    1px -1px 0 black,
+    -1px  0   0 black,
+    1px  0   0 black,
+    -1px  1px 0 black,
+    0    1px 0 black,
+    1px  1px 0 black;
+}
+

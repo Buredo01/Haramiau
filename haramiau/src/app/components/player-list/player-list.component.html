@@ -1,0 +1,175 @@
+<div
+  class="player-sidebar"
+  [class.open]="sidebarOpen"
+  [class.closed]="!sidebarOpen"
+>
+  <div class="sidebar-header">
+    <div class="sidebar-title">
+      <h2>Játékosok</h2>
+      <mat-icon
+        class="clickable-icon"
+        (click)="openDialog()"
+        aria-label="Játékszabály"
+      >
+        help
+      </mat-icon>
+    </div>
+  </div>
+
+  <div class="players-container">
+    <div
+      *ngFor="let entry of playerDatas | keyvalue; let i = index"
+      [ngStyle]="{
+        'outline': playerId == entry.key ? 'red solid 3px' : ' 2px solid #e4e4e4;'
+      }"
+      class="player-item" 
+    >
+      <div
+        class="player-avatar"
+        [ngStyle]="{
+          'background-image': 'url(/avatars/' + entry.value.avatar + '.png)',
+        }"
+      ></div>
+
+      <!-- Tartalom -->
+      <div class="player-info">
+        <div class="player-name-score">
+          <div class="name-with-medal">
+            <span class="player-name" [title]="entry.value.name">
+              {{ entry.value.name | slice : startChar : maxPlayerNameLength }}
+              <ng-container
+                *ngIf="entry.value.name.length > maxPlayerNameLength"
+              >
+                ...
+              </ng-container>
+            </span>
+
+            <div class="badge" >
+            <ng-container *ngIf="entry.value.score > 0">
+              <ng-container *ngIf="playerRanks[entry.key] === 0">
+                <img src="/badges/gold.svg" alt="Gold" class="medal-icon" />
+              </ng-container>
+              <ng-container *ngIf="playerRanks[entry.key] === 1">
+                <img src="/badges/silver.svg" alt="Silver" class="medal-icon" />
+              </ng-container>
+              <ng-container *ngIf="playerRanks[entry.key] === 2">
+                <img src="/badges/bronze.svg" alt="Bronze" class="medal-icon" />
+              </ng-container>
+            </ng-container>
+
+              <span *ngIf="entry.key === currentHaramiauPlayer">
+                <img src="/badges/haramiau.svg"
+                     alt="Haramiau badge"
+                     class="haramiau_badge"
+                     [class.stamped]="entry.key === currentHaramiauPlayer"
+                />
+              </span>
+              <span *ngIf="entry.key == gmId">
+                <img src="/badges/gm.svg" alt="GM badge"/>
+              </span>
+            </div>
+          </div>
+
+          <span class="player-score">
+            <b style="font-size: 20px">{{ entry.value.score }} pont</b>
+          </span>
+        </div>
+
+        <div *ngIf="entry.key != gmId && 
+        ( (isUserGM && getPlayerTip(entry.key)) ||
+         (!isShowTip && isAllTipSent) || 
+         (isShowTip && getPlayerTip(entry.key) || 
+         (getPlayerTip(entry.key) && playerId == entry.key)))"
+          class="lower_part">
+          <div class="tipps">
+          <!-- TIPP -->
+            @if(isShowTip){
+              <div *ngIf="entry.key != gmId" class="player-word">
+                <span *ngIf="getPlayerTip(entry.key) === 'no tipp'" class="no_tipp">
+                  <img class="pass-logo" src="/no_tipp.png" />
+                  <img class="pass-logo" src="/feher_no_tipp.png" />
+                  <img class="pass-logo" src="/no_tipp.png" />
+                </span>
+                <span
+                  [title]="getPlayerTip(entry.key)"
+                  *ngIf="getPlayerTip(entry.key) !== 'no tipp'"
+                >
+                  {{ getPlayerTip(entry.key) | slice : startChar : maxTipLength }}
+                  <ng-container *ngIf="getPlayerTip(entry.key).length > maxTipLength">
+                    ...
+                  </ng-container>
+                </span>
+              </div>
+              } @else if(isUserGM || isAllTipSent || playerId == entry.key) {
+              <div *ngIf="entry.key != gmId" class="player-word">
+                <span *ngIf="getPlayerTip(entry.key) === 'no tipp'" class="no_tipp">
+                  <img class="pass-logo" src="/no_tipp.png" />
+                  <img class="pass-logo" src="/feher_no_tipp.png" />
+                  <img class="pass-logo" src="/no_tipp.png" />
+                </span>
+                <span
+                  [title]="getPlayerTip(entry.key)"
+                  *ngIf="getPlayerTip(entry.key) !== 'no tipp'"
+                >
+                  {{ getPlayerTip(entry.key) | slice : startChar : maxTipLength }}
+                  <ng-container *ngIf="getPlayerTip(entry.key).length > maxTipLength">
+                    ...
+                  </ng-container>
+                </span>
+              </div>
+              }
+          </div>
+
+          <!-- Szavazási lehetőségek -->
+          <div *ngIf="isUserGM && getPlayerTip(entry.key)" class="host-controls">
+            <div class="radio-controls">
+              <label *ngIf="getPlayerTip(entry.key) !== 'no tipp'" class="icon-radio accept">
+                <input
+                  type="radio"
+                  [name]="'guess_' + entry.key"
+                  value="accept"
+                  [(ngModel)]="playerVotes[entry.key]"
+                  (change)="checkVotesChanged()"
+                />
+                <mat-icon>done</mat-icon>
+              </label>
+
+              <label class="icon-radio deny">
+                <input
+                  type="radio"
+                  [name]="'guess_' + entry.key"
+                  value="deny"
+                  [(ngModel)]="playerVotes[entry.key]"
+                  (change)="checkVotesChanged()"
+                  [checked]="getPlayerTip(entry.key) === 'no tipp'"
+                />
+                <mat-icon>close</mat-icon>
+              </label>
+            </div>
+          </div>
+
+        </div>
+    </div>
+  </div>
+    <!-- GM gombok -->
+    <div *ngIf="isUserGM" class="action-buttons">
+      <button
+        *ngIf="hasCorrectGuess || isFinalHint"
+        (click)="completeRound()"
+        class="accept-button"
+        [disabled]="!allVotesCompleted || isProcessingRound"
+      >
+        Kör befejezése
+      </button>
+
+      <button
+        *ngIf="!hasCorrectGuess && !isFinalHint"
+        (click)="nextRound()"
+        class="accept-button"
+        [disabled]="!allVotesCompleted || isProcessingRound"
+      >
+        Következő kör
+      </button>
+    </div>
+  </div>
+</div>

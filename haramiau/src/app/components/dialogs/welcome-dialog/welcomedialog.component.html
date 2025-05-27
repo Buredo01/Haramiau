@@ -1,0 +1,40 @@
+<mat-dialog-content class="dialog-container">
+  <div class="icon-container">
+    <mat-icon
+      class="clickable-icon"
+      (click)="openGRDialog()"
+      aria-label="Játékszabály"
+    >
+      help
+    </mat-icon>
+  </div>
+  <h3 mat-dialog-title>Haramiau</h3>
+
+  <form (ngSubmit)="onJoin()">
+    <mat-form-field appearance="outline" class="inputs">
+      <mat-label>Név</mat-label>
+      <input matInput [(ngModel)]="playerName" name="playerName" />
+    </mat-form-field>
+
+    <mat-form-field class="inputs" appearance="outline">
+      <mat-label>Szoba azonosító</mat-label>
+      <input matInput [(ngModel)]="roomName" name="roomName" />
+    </mat-form-field>
+
+    <div class="button-row">
+      <button
+        class="createButton"
+        mat-button
+        color="primary"
+        type="button"
+        (click)="onHost()"
+        [disabled]="isProcessing || !playerName || !roomName"
+      >
+        Létrehozás
+      </button>
+      <button class="joinButton" mat-button color="accent" type="submit" [disabled]="isProcessing || !playerName || !roomName">
+        Csatlakozás
+      </button>
+    </div>
+  </form>
+</mat-dialog-content>

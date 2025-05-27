@@ -1,0 +1,38 @@
+<div mat-dialog-content class="middle">
+  <div class="flex-container-middle">
+    <h1 mat-dialog-title>Játék vége</h1>
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Játékos</th>
+        <th>Pontszám</th>
+      </tr>
+      <tr *ngFor="let player of playerList; let i = index">
+        <td class="place">#{{i+1}}</td>
+        <td [title]="player.name">
+          {{ player.name | slice : startChar : maxPlayerNameLength
+          }}<ng-container *ngIf="player.name.length > maxPlayerNameLength"
+            >...</ng-container
+          >
+        </td>
+        <td class="information">{{ player.score }}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="flex-container">
+    <div
+      class="ripple-container"
+      matRipple
+      (click)="nextRound()"
+    >
+      <div class="word"><b>Folytatás</b></div>
+    </div>
+    <div
+      class="ripple-container"
+      matRipple
+      (click)="endRound()"
+    >
+      <div class="word"><b>Befejezés</b></div>
+    </div>
+  </div>
+</div>

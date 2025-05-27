@@ -1,0 +1,34 @@
+<div class="player-sidebar2" [class.open]="sidebarOpenright" [class.closed]="!sidebarOpenright">
+<div class="info-card">
+  @if (status) {
+    <div class="info-item">
+      <div class="info-item scrolling-text-container">
+        <div class="scrolling-text">{{ status }}</div>
+      </div>
+    </div>
+  }
+
+  @if(isGM || gameStatus === "showWord"){
+    @if (currentWord != null) {
+      <div class="info-item"><strong>Szó:</strong> {{ currentWord }}</div>
+    }
+  
+    @if (maxTipp != null) {
+      <div class="info-item"><strong>Hintek száma:</strong> {{ maxTipp }}</div>
+    }
+  
+    @if (canGiveMinusPoints) {
+      <div class="info-item"><strong>Adható mínuszpont</strong></div>
+    }
+  }
+ 
+  @if (currentTurn != null) {
+    <div class="info-item"><strong>{{ currentTurn }}.</strong> kör / {{maxTurn}} . kör</div>
+  }
+
+  @if (hintCounter != null) {
+    <div class="info-item"><strong>Felhasznált hint:</strong> {{ hintCounter }}</div>
+  }
+</div>
+</div>
+

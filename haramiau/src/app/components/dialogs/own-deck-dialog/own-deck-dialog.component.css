@@ -1,0 +1,60 @@
+.dialog-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  box-sizing: border-box;
+  background-color: #321b6c;
+  border: 4px solid black;
+  border-radius: 25px;
+}
+
+h2 {
+  letter-spacing: 1px;
+  text-shadow:
+    -1px -1px 0 black,
+    0   -1px 0 black,
+    1px -1px 0 black,
+    -1px  0   0 black,
+    1px  0   0 black,
+    -1px  1px 0 black,
+    0    1px 0 black,
+    1px  1px 0 black;
+}
+
+h3 {
+  letter-spacing: 1px;
+  color: #f59f01;
+  text-shadow:
+    -1px -1px 0 black,
+    0   -1px 0 black,
+    1px -1px 0 black,
+    -1px  0   0 black,
+    1px  0   0 black,
+    -1px  1px 0 black,
+    0    1px 0 black,
+    1px  1px 0 black;
+}
+
+li {
+  letter-spacing: 1px;
+  text-shadow:
+    -1px -1px 0 black,
+    0   -1px 0 black,
+    1px -1px 0 black,
+    -1px  0   0 black,
+    1px  0   0 black,
+    -1px  1px 0 black,
+    0    1px 0 black,
+    1px  1px 0 black;
+}
+mat-tab-group {
+  flex-grow: 1;
+  overflow: auto;
+  scrollbar-color: #321b6c #1e1e1e;
+  scrollbar-width: thin;
+}
+
+mat-dialog-content {
+  height: 100%;
+  padding: 0;
+}

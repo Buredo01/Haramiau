@@ -1,0 +1,136 @@
+<div class="wrapper">
+  <h2 mat-dialog-title class="title">Beállítások</h2>
+  <mat-dialog-content class="container">
+    <form class="settings-form" #settingsForm="ngForm">
+      <h3>Hányszor legyen mindenki Játékmester</h3>
+      <input
+        class="number-input"
+        matInput
+        type="number"
+        min="1"
+        [(ngModel)]="settings.turn"
+        name="turn"
+        required
+      />
+
+      <h3>Tippek megjelenítése</h3>
+      <mat-radio-group
+        [(ngModel)]="settings.isShowTip"
+        name="isShowTip"
+        class="radio-group"
+      >
+        <mat-radio-button [value]="true">Látszódjanak</mat-radio-button>
+        <mat-radio-button [value]="false">Ne látszódjanak</mat-radio-button>
+      </mat-radio-group>
+
+      <h3>Segítségadás időtartama (mp)</h3>
+      <input
+        class="number-input"
+        matInput
+        type="number"
+        min="1"
+        [(ngModel)]="settings.hintTime"
+        name="hintTime"
+        required
+      />
+
+      <h3>Tipp adás időtartama (mp)</h3>
+      <input
+        class="number-input"
+        matInput
+        type="number"
+        min="1"
+        [(ngModel)]="settings.tipTime"
+        name="tipTime"
+        required
+      />
+
+      <h3>Szóválasztás időtartama (mp)</h3>
+      <input
+        class="number-input"
+        matInput
+        type="number"
+        min="1"
+        [(ngModel)]="settings.chooseWordTime"
+        name="chooseWordTime"
+        required
+      />
+
+      <h3>Szómegjelenítés időtartama (mp)</h3>
+      <input
+        class="number-input"
+        matInput
+        type="number"
+        min="1"
+        [(ngModel)]="settings.showWordTime"
+        name="showWordTime"
+        required
+      />
+
+      <h3>Tippek elbírálásának időtartama (mp)</h3>
+      <input
+        class="number-input"
+        matInput
+        type="number"
+        min="1"
+        [(ngModel)]="settings.evaluateTipsTime"
+        name="evaluateTipsTime"
+        required
+      />
+
+      <h3>Szókártyák mínuszpont értéke</h3>
+      <input
+        class="number-input"
+        matInput
+        type="number"
+        max="0"
+        [(ngModel)]="settings.wordMinusPoint"
+        name="wordMinusPoint"
+        required
+      />
+
+      <h3>Haramiau kártya mínuszpont értéke</h3>
+      <input
+        class="number-input"
+        matInput
+        type="number"
+        max="0"
+        [(ngModel)]="settings.haramiauiMinusPoint"
+        name="haramiauiMinusPoint"
+        required
+      />
+
+       <div>
+        <div class="header-row">
+          <h3>Saját szókészlet feltöltése (.txt)</h3>
+          <mat-icon
+            class="clickable-icon"
+            (click)="openOwnDeckInfoDialog()"
+            aria-label="Játékszabály"
+          >
+            help
+          </mat-icon>
+        </div>
+        <div class="fileUploadBox">
+          <label class="custom-file-upload">
+            <input
+              class="uploadBtn"
+              type="file"
+              accept=".txt"
+              (change)="onFileSelected($event)"
+            />
+           <mat-icon>upload_file</mat-icon> Fájl kiválasztása
+          </label>
+          <span class="filename" *ngIf="selectedFileName">
+            {{ selectedFileName }}
+          </span>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button mat-raised-button class="saveButton" (click)="save()">Mentés</button>
+    <button mat-raised-button class="cancelButton" (click)="cancel()">Mégse</button>
+  </mat-dialog-actions>
+</div>

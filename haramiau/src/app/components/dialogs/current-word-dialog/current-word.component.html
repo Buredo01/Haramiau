@@ -1,0 +1,32 @@
+<div mat-dialog-content class="middle">
+  <div class="dialog-header">
+    <h1 mat-dialog-title>Az előző kör szava</h1>
+    <button mat-icon-button class="close-button" (click)="closeDialog()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="flex-container-middle">
+    <h2>{{ currentWord.word }}</h2>
+    @if (this.currentWord.canGiveMinusPoints && localPlayerId === this.currentWord.playerId) {
+    <h3><br />Ki kapja a {{minusPont}} pontot?</h3>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Válassz játékost</mat-label>
+      <mat-select [(value)]="selectedPlayerId" [disabled]="selectedPlayer">
+        <mat-option *ngFor="let player of playerOptions" [value]="player.id">
+          {{ player.name }} ({{ player.score }} pont)
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button class="selectButton" (click)="onConfirm()" [disabled]="selectedPlayer">
+      Kiválaszt
+    </button>
+    } @if (localPlayerId !== gmId){
+    <button mat-button class="haramiauButton" (click)="voteHaramiau()" [disabled]="votedHaramiau">
+      Haramiau
+    </button>
+    }
+  </div>
+  <div class="flex-container"></div>
+</div>

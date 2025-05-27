@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="header">
+      <h3>Válassz avatárt</h3>
+  <button mat-icon-button class="close-button" (click)="close()">
+        <mat-icon>close</mat-icon>
+      </button>
+  </div>
+
+  <div class="avatars-scroll">
+      <div class="avatars">
+        <div *ngFor="let avatar of avatarImagePaths; let i = index" class="avatar">
+          <img [src]="avatar" alt="Avatar" width="100" (click)="selectAvatar(i)" />
+        </div>
+      </div>
+  </div>
+</div>
+

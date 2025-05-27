@@ -1,0 +1,90 @@
+<mat-dialog-content class="dialog-container">
+  <h1 style="text-align: center; margin-top: 16px;">JÁTÉKSZABÁLY</h1>
+  <mat-tab-group preserveContent>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span class="custom-tab-label">Szerepek</span>
+      </ng-template>
+      <h3>1. Játékmester</h3>
+      <ul>
+        <li>Ő választja ki a kitalálandó szót két felajánlott közül.</li>
+        <li>Ő adja meg a segítségeket (tippeket segítő szavakat).</li>
+        <li>Elbírálja a játékosok tippjeit: elfogadja a helyeseket, elutasítja a téveseket.</li>
+        <li>A segítségek minőségére figyelnie kell, különben szankciók érhetik.</li>
+        <li>Jelölése: <img src="/badges/gm.svg" alt="GM badge" style="height: 20px" /></li>
+      </ul>
+
+      <h3>2. Játékosok</h3>
+      <ul>
+        <li>Céljuk a Játékmester által választott szót kitalálni.</li>
+        <li>Segítségek alapján próbálnak tippelni.</li>
+        <li>Tippjeik hatására halad a játék.</li>
+      </ul>
+
+      <h3>3. Haramiau kártya tulajdonos</h3>
+      <ul>
+        <li>Speciális szereplő, akinek büntetés jár a játék végén.</li>
+        <li>Birtokosváltás történhet, ha a Játékmester rossz segítséget ad, vagy játékos hibázik.</li>
+        <li>Jelölése: <img src="/badges/haramiau.svg" alt="Haramiau badge" style="height: 20px" /></li>
+      </ul>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span class="custom-tab-label">játékmenet</span>
+      </ng-template>
+      <h3>1. Szó kiválasztása</h3>
+      <p>A Játékmester választ egyet a felajánlott két szóból.</p>
+      <ul>
+        <li>Itt látható hány pontot ér a szó - ebből következik hány hintet adhat</li>
+        <li>Itt látható, hogy adható-e mínuszpont a szó kitalálása után.</li>
+      </ul>
+
+      <h3>2. Segítségek és tippek</h3>
+      <p>A Játékmester megadja az első segítséget. A játékosok tippelnek.</p>
+
+      <h3>3. Tipp értékelése</h3>
+      <p>A Játékmester elfogadja vagy elutasítja a tippeket.</p>
+
+      <h3>4. További körök</h3>
+      <p>Ha nincs helyes tipp, új segítséget ad, új tippek érkeznek – egészen addig, amíg:</p>
+      <ul>
+        <li>valaki eltalálja a szót, vagy</li>
+        <li>elérik a maximális segítségszámot.</li>
+      </ul>
+
+      <h3>5. Pontozás</h3>
+      <ul>
+        <li>A helyes tippet beküldő játékos és a Játékmester is pontot kap.</li>
+        <li>A pontszám: <strong>maximális segítségek száma – ténylegesen felhasznált segítségek száma</strong>.</li>
+      </ul>
+
+      <h3>6. Következő kör</h3>
+      <p>A Játékmester szerepe továbbadódik a következő játékosnak.</p>
+    </mat-tab>
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span class="custom-tab-label">Pontozás és játék vége</span>
+      </ng-template>
+      <h3>➖ Adható mínuszpont</h3>
+      <ul>
+        <li>Egyes szavakhoz mínuszpont tartozhat.</li>
+        <li>Ha egy ilyen szót talál ki valaki, -1 pontot adhat egy másik játékosnak.</li>
+      </ul>
+
+      <h3><img src="/badges/haramiau.svg" alt="Haramiau badge" style="height: 20px" /> Haramiau kártya</h3>
+      <ul>
+        <li>A Játékmester rossz segítsége esetén a többi játékos megszavazhatja, hogy a kártyát neki kelljen átvennie.</li>
+        <li>Aki másodszor venné magához a kártyát, elveszíti minden pontját.</li>
+        <li>Akinél a játék végén van a Haramiau kártya, -4 pontot veszít.</li>
+      </ul>
+
+      <h3>A játék vége</h3>
+      <ul>
+        <li>A játék akkor ér véget, ha minden játékos kétszer volt Játékmester és a befejezés gomb megnyomásra kerül.</li>
+      </ul>
+    </mat-tab>
+  </mat-tab-group>
+</mat-dialog-content>
