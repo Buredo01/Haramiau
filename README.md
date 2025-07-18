@@ -1,2 +1,2 @@
-# Haramiau
-Haramiau szelencéje társas (aglis 2025)
+# Haramiau szelencéje társasjáték webes változata
+2025-ös Agilis szoftverfejlesztés gyakorlat folyamán lefejlesztett
